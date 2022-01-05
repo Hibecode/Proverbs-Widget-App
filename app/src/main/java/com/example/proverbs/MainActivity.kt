@@ -23,20 +23,12 @@ class MainActivity : AppCompatActivity() {
         try{
             /*val jsonString = getJSONFromAssets()!!*/
             val jsonString = getJSONDataFromAsset(this, "practice.json")
-            val json = """
-                {
-                "title":
-                 "Kotlin Tutorial #1",
-                  "author": "bezkoder",
-                   "categories" :
-                    ["Kotlin","Basic"
-                    ]
-                    }""".trimIndent()
+            val json = jsonprac.trimIndent()
             val gson = Gson()/*fromJson(jsonString, UserList::class.java)*/
             //val listUserType = object : TypeToken<List<UserList>>() {}.type
-            var users = gson.fromJson(json, Tutorial::class.java)
+            var users = gson.fromJson(json, UserList::class.java)
             val listt = users
-            var first = listt.categories[0]
+            var first = listt.user[0].name
             var displaytext: TextView = findViewById(R.id.testTV)
             displaytext.text = first.toString()
         }
