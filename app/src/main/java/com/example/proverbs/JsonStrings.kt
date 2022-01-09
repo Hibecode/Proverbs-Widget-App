@@ -1,7 +1,7 @@
 package com.example.proverbs
 
-val jsonprac = """{
-     [
+var jsonprac = """{
+    "users": [
     {
         "id": 1,
         "name": "Denis Panjuta",
@@ -51,4 +51,10 @@ val jsonprac = """{
     }
     }
     ]
-}"""
+}""".trimIndent()
+
+
+
+
+
+

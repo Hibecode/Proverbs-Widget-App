@@ -9,6 +9,8 @@ import com.example.proverbs.model.User
 import com.example.proverbs.model.UserList
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import com.squareup.moshi.JsonAdapter
+import com.squareup.moshi.Moshi
 import org.json.JSONException
 import org.json.JSONObject
 import java.io.IOException
@@ -16,28 +18,82 @@ import java.lang.NullPointerException
 import java.nio.charset.Charset
 
 class MainActivity : AppCompatActivity() {
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        val displaytext: TextView = findViewById(R.id.testTV)
+
         try{
-            /*val jsonString = getJSONFromAssets()!!*/
+            /*val jsonString = getJSONFromAssets()!!
             val jsonString = getJSONDataFromAsset(this, "practice.json")
             val json = jsonprac.trimIndent()
-            val gson = Gson()/*fromJson(jsonString, UserList::class.java)*/
-            //val listUserType = object : TypeToken<List<UserList>>() {}.type
-            var users = gson.fromJson(json, UserList::class.java)
+            val gson = Gson()fromJson(jsonString, UserList::class.java)
+            val listUserType = object : TypeToken<ArrayList<User>>() {}.type
+            var users = gson.fromJson(jsonString, listUserType::class.java)
             val listt = users
-            var first = listt.user[0].name
-            var displaytext: TextView = findViewById(R.id.testTV)
-            displaytext.text = first.toString()
+            var first = listt
+
+            displaytext.text = first.toString()*/
+
+            val json = """ [
+                {
+                  "name": "Ron",
+                  "age": 12,
+                  "breed": "terrier"
+                },
+                {
+                  "name": "Bob",
+                  "age": 4,
+                  "breed": "bulldog"
+                },
+                {
+                  "name": "Johny",
+                  "age": 3,
+                  "breed": "golden retriever"
+                }
+              ]
+            """.trimIndent()
+            data class Dog(val name: String, val age: Int, val breed: String)
+
+            val gson = Gson()
+            val dogType = object : TypeToken<Array<Dog>>() {}.type
+            val listt: Array<Dog> = gson.fromJson(json, dogType)
+            displaytext.text = listt[0].name
+            //displaytext.text = json
+
+
+            //tryme()
         }
         catch(e: JSONException) {
             e.printStackTrace()
         }
-        /*catch(e: NullPointerException) {
+        catch(e: NullPointerException) {
             e.printStackTrace()
-        }*/
+        }
+
+        //jsonToDataClass()
+
+
+
+
+    }
+
+
+
+    fun jsonToDataClass(){
+        var displaytext: TextView = findViewById(R.id.testTV)
+        val userJson = jsonprac
+
+        val moshi = Moshi.Builder().build()
+        val userAdapter : JsonAdapter<UserList> = moshi.adapter(UserList::class.java)
+        val userItem = userAdapter.fromJson(userJson)
+
+        displaytext.text = userItem.toString()
+
+
     }
 
 
@@ -71,4 +127,27 @@ class MainActivity : AppCompatActivity() {
         }
         return jsonString
     }
+
+    fun tryme(){
+        val jsonList =
+            """[{"title":"Kotlin Tutorial #1","author":"bezkoder","categories":["Kotlin, Basic"]},
+			{"title":"Kotlin Tutorial #2","author":"bezkoder","categories":["Kotlin, Practice"]}]"""
+
+        val gson = Gson()
+        val arrayTutorialType = object : TypeToken<Array<Tutorial>>() {}.type
+
+        var tutorials: Array<Tutorial> = gson.fromJson(jsonList, arrayTutorialType)
+        tutorials.forEachIndexed  { idx, tut -> println("> Item ${idx}:\n${tut}") }
+
+
+
+    }
+
+
+
+
+
+
+
+
 }
