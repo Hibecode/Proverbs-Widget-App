@@ -196,6 +196,7 @@ class MainActivity : AppCompatActivity() {
         //val listt: Array<Dog> = gson.fromJson(json, dogType)
         val listt = gson.fromJson(jsonString, UserList::class.java)
         var displaytext: TextView = findViewById(R.id.testTV)
+
         displaytext.text = listt.users[0].email
     }
 

@@ -47,3 +47,38 @@ class DogList(
     val doglist: Array<Dog>
 )
 
+
+// To parse the JSON, install Klaxon and do:
+//
+//   val welcome8 = Welcome8.fromJson(jsonString)
+
+/*
+package codebeautify
+
+import com.beust.klaxon.*
+
+private val klaxon = Klaxon()
+
+data class Welcome8 (
+    val book: String,
+    val chapters: List<Chapter>
+) {
+    public fun toJson() = klaxon.toJsonString(this)
+
+    companion object {
+        public fun fromJson(json: String) = klaxon.parse<Welcome8>(json)
+    }
+}
+*/
+
+data class Chapter (
+    val chapter: String,
+    val verses: List<Verse>
+)
+
+data class Verse (
+    val verse: String,
+    val text: String
+)
+
+
