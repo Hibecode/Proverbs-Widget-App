@@ -38,7 +38,7 @@ class MainActivity : AppCompatActivity() {
 
             displaytext.text = first.toString()*/
 
-            working3()
+            working4()
 
             //tryme()
         }
@@ -198,6 +198,15 @@ class MainActivity : AppCompatActivity() {
         var displaytext: TextView = findViewById(R.id.testTV)
 
         displaytext.text = listt.users[0].email
+    }
+
+    fun working4(){
+        val jsonString = getJSONDataFromAsset(this, "Proverbs.json")
+        val gson = Gson()
+        val listt = gson.fromJson(jsonString, Books::class.java)
+        var displaytext: TextView = findViewById(R.id.testTV)
+
+        displaytext.text = listt.chapters[4].verses[7].text
     }
 
 
