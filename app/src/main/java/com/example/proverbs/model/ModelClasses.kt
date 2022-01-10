@@ -2,7 +2,7 @@ package com.example.proverbs.model
 
 
 data class UserList(
-    val user: ArrayList<User>
+    val users: Array<User>
 )
 
 data class User(
@@ -31,4 +31,19 @@ class Tutorial(
         return "Category [title: ${this.title}, author: ${this.author}, categories: ${this.categories}]"
     }
 }
+
+
+class Dog(
+    val name: String,
+    val age: Int,
+    val breed: String
+    ){
+    override fun toString(): String {
+        return "categories [Name: ${this.name}, Age: ${this.age}, Breed: ${this.breed}]"
+    }
+}
+
+class DogList(
+    val doglist: Array<Dog>
+)
 

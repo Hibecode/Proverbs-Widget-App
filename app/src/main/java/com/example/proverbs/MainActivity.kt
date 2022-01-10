@@ -1,12 +1,11 @@
 package com.example.proverbs
 
+import android.annotation.SuppressLint
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.TextView
-import com.example.proverbs.model.Tutorial
-import com.example.proverbs.model.User
-import com.example.proverbs.model.UserList
+import com.example.proverbs.model.*
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.squareup.moshi.JsonAdapter
@@ -20,6 +19,7 @@ import java.nio.charset.Charset
 class MainActivity : AppCompatActivity() {
 
 
+    @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -38,32 +38,7 @@ class MainActivity : AppCompatActivity() {
 
             displaytext.text = first.toString()*/
 
-            val json = """ [
-                {
-                  "name": "Ron",
-                  "age": 12,
-                  "breed": "terrier"
-                },
-                {
-                  "name": "Bob",
-                  "age": 4,
-                  "breed": "bulldog"
-                },
-                {
-                  "name": "Johny",
-                  "age": 3,
-                  "breed": "golden retriever"
-                }
-              ]
-            """.trimIndent()
-            data class Dog(val name: String, val age: Int, val breed: String)
-
-            val gson = Gson()
-            val dogType = object : TypeToken<Array<Dog>>() {}.type
-            val listt: Array<Dog> = gson.fromJson(json, dogType)
-            displaytext.text = listt[0].name
-            //displaytext.text = json
-
+            working3()
 
             //tryme()
         }
@@ -130,21 +105,99 @@ class MainActivity : AppCompatActivity() {
 
     fun tryme(){
         val jsonList =
-            """[{"title":"Kotlin Tutorial #1","author":"bezkoder","categories":["Kotlin, Basic"]},
-			{"title":"Kotlin Tutorial #2","author":"bezkoder","categories":["Kotlin, Practice"]}]"""
+            """[
+                {
+              "title":"Kotlin Tutorial #1",
+              "author":"bezkoder",
+              "categories":["Kotlin, Basic"]},
+			{
+            "title":"Kotlin Tutorial #2",
+            "author":"bezkoder",
+            "categories":["Kotlin, Practice"]
+             }
+             ]""".trimIndent()
 
         val gson = Gson()
         val arrayTutorialType = object : TypeToken<Array<Tutorial>>() {}.type
 
         var tutorials: Array<Tutorial> = gson.fromJson(jsonList, arrayTutorialType)
-        tutorials.forEachIndexed  { idx, tut -> println("> Item ${idx}:\n${tut}") }
+        //tutorials.forEachIndexed  { idx, tut -> println("> Item ${idx}:\n${tut}") }
+
+        var displaytext: TextView = findViewById(R.id.testTV)
+        displaytext.text = tutorials[0].categories[0]
+
+
 
 
 
     }
 
 
+    fun working1(){
+        val json = """[
+                {
+                "name": "Ron",
+                "age": 12,
+                "breed": "terrier"
+                },
+                {
+                  "name": "Bob",
+                  "age": 4,
+                  "breed": "bulldog"
+                },
+                {
+                  "name": "Johny",
+                  "age": 3,
+                  "breed": "golden retriever"
+                }
+              ]""".trimIndent()
 
+
+        val gson = Gson()
+        val dogType = object : TypeToken<Array<Dog>>() {}.type
+        val listt: Array<Dog> = gson.fromJson(json, dogType)
+        var displaytext: TextView = findViewById(R.id.testTV)
+        displaytext.text = listt[0].age.toString()
+    }
+
+    fun working2(){
+        val json = """
+            {"doglist": [
+                {
+                "name": "Ron",
+                "age": 12,
+                "breed": "terrier"
+                },
+                {
+                  "name": "Bob",
+                  "age": 4,
+                  "breed": "bulldog"
+                },
+                {
+                  "name": "Johny",
+                  "age": 3,
+                  "breed": "golden retriever"
+                }
+              ]}""".trimIndent()
+
+
+        val gson = Gson()
+        //val dogType = object : TypeToken<Array<Dog>>() {}.type
+        //val listt: Array<Dog> = gson.fromJson(json, dogType)
+        val listt = gson.fromJson(json, DogList::class.java)
+        var displaytext: TextView = findViewById(R.id.testTV)
+        displaytext.text = listt.doglist[0].breed
+    }
+
+    fun working3(){
+        val jsonString = getJSONDataFromAsset(this, "practice.json")
+        val gson = Gson()
+        //val dogType = object : TypeToken<Array<Dog>>() {}.type
+        //val listt: Array<Dog> = gson.fromJson(json, dogType)
+        val listt = gson.fromJson(jsonString, UserList::class.java)
+        var displaytext: TextView = findViewById(R.id.testTV)
+        displaytext.text = listt.users[0].email
+    }
 
 
 
