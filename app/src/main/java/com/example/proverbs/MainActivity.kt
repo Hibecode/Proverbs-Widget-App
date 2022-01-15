@@ -27,7 +27,7 @@ class MainActivity : AppCompatActivity() {
 
         val displaytext: TextView = findViewById(R.id.testTV)
         val tex = displaytext.text
-        val listts = getListAllLists(this)
+        val listts = getListShuffledList(this)
         var pos = 0
 
         val prev = findViewById<Button>(R.id.prev)
@@ -237,8 +237,6 @@ class MainActivity : AppCompatActivity() {
 
         displaytext.text = listt.chapters[4].verses[8].text
 
-
-        getListAllLists(this)
     }
 
 
