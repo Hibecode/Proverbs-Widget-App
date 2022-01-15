@@ -18,6 +18,7 @@ fun getListAllLists(context: Context): List<String>{
             newList.add(j.text)
         }
     }
+    newList.removeAt(0)
     return newList
 }
 
