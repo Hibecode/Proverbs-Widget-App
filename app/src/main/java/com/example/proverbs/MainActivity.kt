@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Button
 import android.widget.TextView
 import com.example.proverbs.model.*
 import com.google.gson.Gson
@@ -25,9 +26,37 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         val displaytext: TextView = findViewById(R.id.testTV)
+        val tex = displaytext.text
+        val listts = getListAllLists(this)
+        var pos = 0
 
-        try{
-            /*val jsonString = getJSONFromAssets()!!
+        val prev = findViewById<Button>(R.id.prev)
+        val next = findViewById<Button>(R.id.nextB)
+
+
+        prev.setOnClickListener{
+            displaytext.text = listts[pos-1]
+            pos -= 1
+        }
+        next.setOnClickListener{
+            displaytext.text = listts[pos+1]
+            pos += 1
+        }
+        /*while(true){
+            val listts = getListAllLists(this)
+
+            for (i in listts){
+
+
+            }
+        }*/
+
+
+
+
+
+       /* try{
+            *//*val jsonString = getJSONFromAssets()!!
             val jsonString = getJSONDataFromAsset(this, "practice.json")
             val json = jsonprac.trimIndent()
             val gson = Gson()fromJson(jsonString, UserList::class.java)
@@ -36,7 +65,7 @@ class MainActivity : AppCompatActivity() {
             val listt = users
             var first = listt
 
-            displaytext.text = first.toString()*/
+            displaytext.text = first.toString()*//*
 
             working4()
 
@@ -50,7 +79,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         //jsonToDataClass()
-
+*/
 
 
 
@@ -207,6 +236,9 @@ class MainActivity : AppCompatActivity() {
         var displaytext: TextView = findViewById(R.id.testTV)
 
         displaytext.text = listt.chapters[4].verses[8].text
+
+
+        getListAllLists(this)
     }
 
 
