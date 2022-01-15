@@ -7,18 +7,36 @@ import com.google.gson.Gson
 import java.io.IOException
 
 
-fun getListAllLists(context: Context): List<String>{
+fun getListAllList(context: Context): List<String>{
     val jsonString = getJSONDataFromAsset(context, "Proverbs.json")
 
     val gson = Gson()
     val list1 = gson.fromJson(jsonString, Books::class.java)
     val newList =  mutableListOf("")
     for (i in list1.chapters){
+        var newString = "#Proverbs ${i.chapter}:"
         for (j in i.verses){
-            newList.add(j.text)
+            newList.add(j.text+newString+j.verse)
         }
     }
     newList.removeAt(0)
+    return newList
+}
+
+fun getListShuffledList(context: Context): List<String>{
+    val jsonString = getJSONDataFromAsset(context, "Proverbs.json")
+
+    val gson = Gson()
+    val list1 = gson.fromJson(jsonString, Books::class.java)
+    val newList =  mutableListOf("")
+    for (i in list1.chapters){
+        var newString = "#Proverbs ${i.chapter}:"
+        for (j in i.verses){
+            newList.add(j.text+newString+j.verse)
+        }
+    }
+    newList.removeAt(0)
+    newList.shuffle()
     return newList
 }
 
