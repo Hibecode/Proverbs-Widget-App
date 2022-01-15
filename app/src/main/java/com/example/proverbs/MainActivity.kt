@@ -206,7 +206,7 @@ class MainActivity : AppCompatActivity() {
         val listt = gson.fromJson(jsonString, Books::class.java)
         var displaytext: TextView = findViewById(R.id.testTV)
 
-        displaytext.text = listt.chapters[4].verses[7].text
+        displaytext.text = listt.chapters[4].verses[8].text
     }
 
 
